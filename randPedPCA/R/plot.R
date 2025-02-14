@@ -3,8 +3,10 @@
 
 #' @method plot rppca
 #' @export
-plot.rppca <- function(x, dims=c(1,2), to=10000, col=NULL, ...){
-  ss <- summary(x)$importance # get variance components
+plot.rppca <- function(x, dims=c(1,2), to=10000, col=NULL, xlab=NULL, ylab=NULL, ...){
+  # Summary throws a warning if there are no variance proportions
+  # We'll suppress this as we handle both cases, with and without variance components.
+  ss <- suppressWarnings(summary(x)$importance) # get variance components
 
   if(is.null(x$ds)) x <- dspc(x, to) # add index for downsampling (if not present)
 
@@ -18,12 +20,14 @@ plot.rppca <- function(x, dims=c(1,2), to=10000, col=NULL, ...){
     } else {
       cols <- col
     }
+  } else { # if no colours set
+    cols <- 1
   }
   if(dim(ss)[1] == 3){ # add var proportions if any
     plot(
       x$x[x$ds,dims],
-      xlab=paste0("PC", dims[1], " (", signif(100*ss[2,dims[1]], 3), "%)"),
-      ylab=paste0("PC", dims[2], " (", signif(100*ss[2,dims[2]], 3), "%)"),
+      xlab=ifelse(is.null(xlab), paste0("PC", dims[1], " (", signif(100*ss[2,dims[1]], 3), "%)"), xlab),
+      ylab=ifelse(is.null(ylab), paste0("PC", dims[2], " (", signif(100*ss[2,dims[2]], 3), "%)"), ylab),
       col = cols,
       ...
     )
@@ -31,6 +35,8 @@ plot.rppca <- function(x, dims=c(1,2), to=10000, col=NULL, ...){
     plot(
       x$x[x$ds,dims],
       col = cols,
+      xlab=ifelse(is.null(xlab), paste0("PC", dims[1]), xlab),
+      ylab=ifelse(is.null(ylab), paste0("PC", dims[2]), ylab),
       ...
     )
   }

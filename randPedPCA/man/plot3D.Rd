@@ -4,12 +4,18 @@
 \alias{plot3D}
 \title{3D plot using rgl}
 \usage{
-plot3D(x, dims = c(1, 2, 3), ...)
+plot3D(x, dims = c(1, 2, 3), xlab = NULL, ylab = NULL, zlab = NULL, ...)
 }
 \arguments{
 \item{x, }{an rppca object}
 
 \item{dims, }{vector of length 3 - indices of the PCs to plot}
+
+\item{xlab}{(optional) x axis label}
+
+\item{ylab}{(optional) yaxis label}
+
+\item{zlab}{(optional) xz axis label}
 
 \item{...}{additional arguments passed to rgl::plot3d}
 }
@@ -17,7 +23,15 @@ plot3D(x, dims = c(1, 2, 3), ...)
 A simple wrapper around rgl's pot3d function.
 }
 \details{
-Note, different to `plot.rppca`, which is relatively slow, `plot3D` does
-not down-sample the principal components and it ignores the `ds` slot of an
-`rppca` object if present.
+Note, different to \code{plot.rppca}, which is relatively slow, \code{plot3D} does
+not down-sample the principal components and it ignores the \code{ds} slot of an
+\code{rppca} object if present.
+}
+\examples{
+pc <- rppca(pedLInv)
+plot3D(pc)
+
+ped <- pedigree(sire=pedMeta$fid, dam=pedMeta$mid, label=pedMeta$id)
+pc2 <- rppca(ped)
+plot3D(pc2)
 }

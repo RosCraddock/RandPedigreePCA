@@ -219,3 +219,5 @@ randPedPCA/rsconnect/
 
 randPedPCA.Rcheck/*
 
+# temp files from tests
+randPedPCA/tests/testthat/*.pdf

@@ -1,14 +1,14 @@
 Package: randPedPCA
 Type: Package
 Title: Fast PCA for large pedigrees
-Version: 0.9.6
+Version: 0.9.8
 Authors@R: c(
     person("Hanbin", "Lee", email = "hblee@umich.edu", role = "aut"),
     person("Hannes", "Becher", email = "h.becher@ed.ac.uk", role = "cre"),
     person("Ros", "Craddock", email="", role= "aut"),
     person("Gregor", "Gorjanc", email="", role= "aut"))
 Description: randPedPCA is for computing PCAs of large pedigrees such as found
-    in breeding populations. randPedPCA exploits sparse matrices and random
+    in breeding populations. randPedPCA exploits sparse matrices and randomised
     linear algebra to deliver a gazillion-times speedup compared to naive SVD 
     (and eigen decomposition).
 License: MIT + file LICENSE

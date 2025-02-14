@@ -172,7 +172,63 @@ test_that("Sub-sampling", {
 
 # Plotting ----------------------------------------------------------------
 test_that("Plotting",{
+  pcNoV <- rppca(pedLInv, center=T)
   pc <- rppca(pedLInv, center=T, totVar=2694.038)
   # length of 'col' is different from number of individuals in the PCA
-  expect_warning(plot(pc, col=c("yellow", "green"), to = 0.5))
+  expect_warning(plot(pc, col=c("yellow", "green"), to = 0.5)) # warning that colour vector length does not match individual number
+  expect_no_condition(plot(pc))
+  expect_no_condition(plot(pcNoV))
+  expect_no_condition(plot(pc, col=2))
+  expect_no_condition(plot(pcNoV, col=2))
+  expect_no_condition(plot(pc, col="grey"))
+  expect_no_condition(plot(pcNoV, col="grey"))
+  expect_message(plot(pc, col=as.numeric(factor(pedMeta$population)))) # message that colours are downsampled
+  expect_message(plot(pcNoV, col=as.numeric(factor(pedMeta$population)))) # message that colours are downsampled
 })
+
+
+test_that("Plot3D",{
+  pcNoV <- rppca(pedLInv, center=T)
+  pc <- rppca(pedLInv, center=T, totVar=2694.038)
+  # length of 'col' is different from number of individuals in the PCA
+  expect_no_condition(plot3D(pc, col=c("yellow", "green")))
+  expect_no_condition(plot3D(pcNoV, col=c("yellow", "green")))
+  expect_no_condition(plot3D(pc, col=2))
+  expect_no_condition(plot3D(pcNoV, col=2))
+  expect_no_condition(plot3D(pc, col="grey"))
+  expect_no_condition(plot3D(pcNoV, col="grey"))
+  expect_no_condition(plot3D(pc, col=as.numeric(factor(pedMeta$population))))
+  expect_no_condition(plot3D(pcNoV, col=as.numeric(factor(pedMeta$population))))
+})
+
+
+test_that("Axis labels",{
+  pcNoV <- rppca(pedLInv, center=T)
+  pc <- rppca(pedLInv, center=T, totVar=2694.038)
+  expect_warning(plot(pc, col=c("yellow", "green"), to = 0.5, xlab="123", ylab="456")) # warning that colour vector length does not match individual number
+  expect_no_condition(plot(pc, xlab="123", ylab="456"))
+  expect_no_condition(plot(pcNoV, xlab="123", ylab="456"))
+  expect_no_condition(plot(pc, col=2, xlab="123", ylab="456"))
+  expect_no_condition(plot(pcNoV, col=2, xlab="123", ylab="456"))
+  expect_no_condition(plot(pc, col="grey", xlab="123", ylab="456"))
+  expect_no_condition(plot(pcNoV, col="grey", xlab="123", ylab="456"))
+  expect_message(plot(pc, col=as.numeric(factor(pedMeta$population)), xlab="123", ylab="456")) # message that colours are downsampled
+  expect_message(plot(pcNoV, col=as.numeric(factor(pedMeta$population)), xlab="123", ylab="456")) # message that colours are downsampled
+})
+
+
+test_that("Axis labels 3D",{
+  pcNoV <- rppca(pedLInv, center=T)
+  pc <- rppca(pedLInv, center=T, totVar=2694.038)
+  expect_no_condition(plot3D(pc, col=c("yellow", "green"), xlab="123", ylab="456")) # warning that colour vector length does not match individual number
+  expect_no_condition(plot3D(pc, xlab="123", ylab="456"))
+  expect_no_condition(plot3D(pcNoV, xlab="123", ylab="456"))
+  expect_no_condition(plot3D(pc, col=2, xlab="123", ylab="456"))
+  expect_no_condition(plot3D(pcNoV, col=2, xlab="123", ylab="456"))
+  expect_no_condition(plot3D(pc, col="grey", xlab="123", ylab="456"))
+  expect_no_condition(plot3D(pcNoV, col="grey", xlab="123", ylab="456"))
+  expect_no_condition(plot3D(pc, col=as.numeric(factor(pedMeta$population)), xlab="123", ylab="456"))
+  expect_no_condition(plot3D(pcNoV, col=as.numeric(factor(pedMeta$population)), xlab="123", ylab="456"))
+})
+
+
